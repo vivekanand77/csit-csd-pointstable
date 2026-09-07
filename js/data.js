@@ -131,7 +131,7 @@ const DEFAULT_JR_TEAMS = [
     losses: 1,
     ties: 0,
     noResult: 0,
-    nrr: +2.37,
+    nrr: +1.19,
     points: 2
   },
 
@@ -145,7 +145,7 @@ const DEFAULT_JR_TEAMS = [
     losses: 1,
     ties: 0,
     noResult: 0,
-    nrr: +2.04,
+    nrr: +1.03,
     points: 2
   }
 ];
