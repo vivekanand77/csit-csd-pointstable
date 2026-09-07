@@ -132,7 +132,7 @@ const DEFAULT_JR_TEAMS = [
     ties: 0,
     noResult: 0,
     nrr: +2.37,
-    points: 0
+    points: 2
   },
 
   {
