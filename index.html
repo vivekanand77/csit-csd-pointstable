@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSD &amp; CSIT Cricket Tournament</title>
+  <meta name="description" content="Official tournament portal for the CSD &amp; CSIT Cricket Tournament — match schedules, points table, and leaderboards." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-area" aria-label="CSD &amp; CSIT Tournament Home">
+      <img src="asserts/hpl_Logo.png" alt="HPL 2026" class="nav-hpl-logo" />
+      <div class="logo-text">
+        <div class="logo-title">CSD &amp; CSIT</div>
+        <div class="logo-sub">Cricket Tournament</div>
+      </div>
+    </a>
+    <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+      <span class="bar1"></span>
+      <span class="bar2"></span>
+      <span class="bar3"></span>
+    </button>
+    <ul class="nav-menu" id="nav-menu" role="list">
+      <li><a href="index.html" class="nav-link active">🏠 Home</a></li>
+      <li><a href="matches.html" class="nav-link">Matches</a></li>
+      <li><a href="points-table.html" class="nav-link">🏆 Points Table</a></li>
+      <li><a href="leaders.html" class="nav-link">🏅 Leaders</a></li>
+      <li><a href="scorer.html" class="nav-link nav-scorer">Scorer Portal</a></li>
+      <li><a href="admin.html" class="nav-link nav-admin">🔒 Admin</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">🏏 Season 2026</div>
+    <h1>CSD &amp; CSIT<br /><span>Cricket Tournament</span></h1>
+    <p class="hero-sub">The ultimate inter-house cricket championship. Follow live standings, results &amp; leaderboards.</p>
+    <div class="hero-actions">
+      <a href="matches.html" class="btn btn-primary">📅 View Matches</a>
+      <a href="points-table.html" class="btn btn-outline">🏆 Points Table</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<div class="container page-body">
+  <div class="stats-row" id="home-stats">
+    <div class="stat-card"><div class="stat-val" id="stat-teams">6</div><div class="stat-label">Teams</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-matches">7</div><div class="stat-label">Matches</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-completed">4</div><div class="stat-label">Completed</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-upcoming">3</div><div class="stat-label">Upcoming</div></div>
+  </div>
+
+  <div class="home-grid">
+    <!-- Points Table Preview -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">🏆 Points Table</span>
+        <a href="points-table.html" class="btn btn-blue btn-sm">Full Table →</a>
+      </div>
+      <div class="table-scroll">
+        <table class="standings-table">
+          <thead>
+            <tr>
+              <th class="th-center">Pos</th>
+              <th>Team</th>
+              <th class="th-center">P</th>
+              <th class="th-center">W</th>
+              <th class="th-center">Pts</th>
+            </tr>
+          </thead>
+          <tbody id="home-standings-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Upcoming Matches -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">📅 Next Matches</span>
+        <a href="matches.html" class="btn btn-blue btn-sm">All Matches →</a>
+      </div>
+      <div id="home-upcoming" style="padding:0 4px 4px;"></div>
+    </div>
+  </div>
+
+  <!-- Leaders preview -->
+  <div class="home-grid" style="margin-top:20px">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">🏅 Top Run Scorers</span>
+        <a href="leaders.html" class="btn btn-blue btn-sm">All Leaders →</a>
+      </div>
+      <div class="table-scroll">
+        <table class="leader-table">
+          <thead><tr><th>#</th><th>Player</th><th>Runs</th></tr></thead>
+          <tbody id="home-runs-body"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">🎯 Top Wicket Takers</span>
+        <a href="leaders.html" class="btn btn-blue btn-sm">All Leaders →</a>
+      </div>
+      <div class="table-scroll">
+        <table class="leader-table">
+          <thead><tr><th>#</th><th>Player</th><th>Wkts</th></tr></thead>
+          <tbody id="home-wkts-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/common.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Mini standings
+  const teams = sortTeams(loadTeams()).slice(0, 6);
+  const sb = document.getElementById("home-standings-body");
+  teams.forEach((t, i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td class="col-pos"><span class="pos-badge ${i<2?'pos-qualify':''}">${i+1}</span></td>
+      <td><span class="team-dot" style="background:${t.color||'#287BEA'}"></span><span class="team-name">${t.name}</span></td>
+      <td class="col-stat">${t.played}</td><td class="col-stat">${t.wins}</td>
+      <td class="col-pts">${t.points}</td>`;
+    sb.appendChild(tr);
+  });
+
+  // Upcoming matches
+  const matches = loadMatches().filter(m => m.status === "UPCOMING").slice(0, 3);
+  const uc = document.getElementById("home-upcoming");
+  if (!matches.length) { uc.innerHTML = '<p style="padding:20px;color:var(--text-muted);text-align:center">No upcoming matches</p>'; }
+  matches.forEach(m => {
+    const div = document.createElement("div");
+    div.style.cssText = "padding:14px 16px;border-bottom:1px solid var(--border)";
+    div.innerHTML = `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:12px;color:var(--text-muted);font-weight:600">Match #${m.matchNo}</span>
+        <span class="badge badge-upcoming">Upcoming</span></div>
+      <div style="font-size:13px;font-weight:600;color:var(--navy)">${m.teamA} <span style="color:var(--text-muted);font-weight:400">vs</span> ${m.teamB}</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:3px">📅 ${m.date} · 🕐 ${m.time}</div>`;
+    uc.appendChild(div);
+  });
+
+  // Leaders preview
+  const rb = document.getElementById("home-runs-body");
+  DEFAULT_RUN_SCORERS.slice(0,5).forEach((p,i) => {
+    const cls = ["gold","silver","bronze"][i]||"";
+    rb.innerHTML += `<tr><td><span class="rank-badge ${cls}">${p.rank}</span></td>
+      <td><div class="leader-name">${p.name}</div><div class="leader-team">${p.team}</div></td>
+      <td class="leader-stat">${p.runs}</td></tr>`;
+  });
+  const wb = document.getElementById("home-wkts-body");
+  DEFAULT_WICKET_TAKERS.slice(0,5).forEach((p,i) => {
+    const cls = ["gold","silver","bronze"][i]||"";
+    wb.innerHTML += `<tr><td><span class="rank-badge ${cls}">${p.rank}</span></td>
+      <td><div class="leader-name">${p.name}</div><div class="leader-team">${p.team}</div></td>
+      <td class="leader-stat">${p.wickets}</td></tr>`;
+  });
+});
+</script>
+</body>
+</html>

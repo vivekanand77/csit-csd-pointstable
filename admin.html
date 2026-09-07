@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — CSD &amp; CSIT Tournament</title>
+  <meta name="description" content="Admin panel for managing SR and JR league standings." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* League tab bar in admin */
+    .admin-league-tabs {
+      display: flex; gap: 0;
+      background: rgba(255,255,255,.08);
+      border: 1.5px solid rgba(255,255,255,.18);
+      border-radius: 10px; padding: 4px;
+      width: fit-content;
+    }
+    .admin-league-tab {
+      padding: 8px 22px; border-radius: 7px; border: none;
+      background: transparent; color: rgba(255,255,255,.65);
+      font-size: 13.5px; font-weight: 600; cursor: pointer;
+      transition: all .15s; font-family: inherit;
+    }
+    .admin-league-tab.active { background: #fff; color: var(--blue); }
+    .admin-league-tab:hover:not(.active) { color: #fff; background: rgba(255,255,255,.12); }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-area" aria-label="Home">
+      <img src="asserts/hpl_Logo.png" alt="HPL 2026" class="nav-hpl-logo" />
+      <div class="logo-text">
+        <div class="logo-title">CSD &amp; CSIT</div>
+        <div class="logo-sub">Cricket Tournament</div>
+      </div>
+    </a>
+    <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+      <span class="bar1"></span><span class="bar2"></span><span class="bar3"></span>
+    </button>
+    <ul class="nav-menu" id="nav-menu" role="list">
+      <li><a href="index.html" class="nav-link">🏠 Home</a></li>
+      <li><a href="matches.html" class="nav-link">Matches</a></li>
+      <li><a href="points-table.html" class="nav-link">🏆 Points Table</a></li>
+      <li><a href="leaders.html" class="nav-link">🏅 Leaders</a></li>
+      <li><a href="scorer.html" class="nav-link nav-scorer">Scorer Portal</a></li>
+      <li><a href="admin.html" class="nav-link nav-admin active">🔒 Admin</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ===== LOGIN ===== -->
+<div id="admin-login" style="display:none">
+  <div class="admin-login-wrap">
+    <div class="admin-login-card">
+      <div style="font-size:36px;margin-bottom:12px;text-align:center">🔒</div>
+      <h2 style="text-align:center">Admin Access</h2>
+      <p style="text-align:center">Enter the admin password to manage both league standings.</p>
+      <div style="background:#FFF7ED;border:1px solid #FED7AA;border-radius:8px;padding:10px 12px;margin-bottom:18px;font-size:12px;color:#92400E">
+        ⚠️ This is a simple frontend password, not real security.
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="admin-password">Password</label>
+        <input type="password" id="admin-password" class="form-input" placeholder="Enter admin password" autocomplete="current-password" />
+        <div class="login-error" id="login-error" role="alert"></div>
+      </div>
+      <button id="login-btn" class="btn btn-blue btn-full">Login →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div id="admin-dashboard" style="display:none">
+
+  <!-- Banner with league switcher -->
+  <div class="page-banner">
+    <div class="container">
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px">
+        <div>
+          <h1>⚙️ Points Table Admin</h1>
+          <p>Editing: <strong id="league-label">SR League</strong></p>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <!-- League tabs -->
+          <div class="admin-league-tabs" role="group" aria-label="Active league">
+            <button class="admin-league-tab active" data-league="sr" onclick="switchAdminLeague('sr')" aria-pressed="true">SR League</button>
+            <button class="admin-league-tab"        data-league="jr" onclick="switchAdminLeague('jr')" aria-pressed="false">JR League</button>
+          </div>
+          <button id="logout-btn" class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);font-size:13px">Logout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container page-body">
+    <div class="admin-layout">
+
+      <!-- ===== EDITOR COLUMN ===== -->
+      <div class="admin-editor">
+        <div class="editor-card">
+          <div class="card-header"><span class="card-title">Edit Team</span></div>
+          <div class="editor-body">
+            <label class="form-label" for="team-select">Select Team</label>
+            <select id="team-select" class="select-input" aria-label="Select team to edit">
+              <option value="">— Select a team —</option>
+            </select>
+
+            <div id="team-editor" style="display:none">
+
+              <!-- Quick result recording -->
+              <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:8px">Record Result</p>
+              <div class="action-grid">
+                <button class="act-btn act-win"  onclick="recordWin()"  aria-label="Record a win">✅ Win</button>
+                <button class="act-btn act-loss" onclick="recordLoss()" aria-label="Record a loss">❌ Loss</button>
+                <button class="act-btn act-tie"  onclick="recordTie()"  aria-label="Record a tie">🤝 Tie</button>
+              </div>
+
+              <div class="divider"></div>
+
+              <!-- Manual field controls -->
+              <div class="ed-row">
+                <span class="ed-label">Played</span>
+                <div class="ed-controls">
+                  <button class="ic-btn" onclick="updateField('played',-1)" aria-label="Decrease played">−</button>
+                  <span class="ed-val" id="ed-played">0</span>
+                  <button class="ic-btn" onclick="updateField('played',1)"  aria-label="Increase played">+</button>
+                </div>
+              </div>
+              <div class="ed-row">
+                <span class="ed-label">Wins</span>
+                <div class="ed-controls">
+                  <button class="ic-btn" onclick="updateField('wins',-1)" aria-label="Decrease wins">−</button>
+                  <span class="ed-val" id="ed-wins">0</span>
+                  <button class="ic-btn" onclick="updateField('wins',1)"  aria-label="Increase wins">+</button>
+                </div>
+              </div>
+              <div class="ed-row">
+                <span class="ed-label">Losses</span>
+                <div class="ed-controls">
+                  <button class="ic-btn" onclick="updateField('losses',-1)" aria-label="Decrease losses">−</button>
+                  <span class="ed-val" id="ed-losses">0</span>
+                  <button class="ic-btn" onclick="updateField('losses',1)"  aria-label="Increase losses">+</button>
+                </div>
+              </div>
+              <div class="ed-row">
+                <span class="ed-label">Ties / NR</span>
+                <div class="ed-controls">
+                  <button class="ic-btn" onclick="updateTiesNR(-1)" aria-label="Decrease ties/no-result">−</button>
+                  <span class="ed-val" id="ed-ties">0</span>
+                  <button class="ic-btn" onclick="updateTiesNR(1)"  aria-label="Increase ties/no-result">+</button>
+                </div>
+              </div>
+              <div class="ed-row">
+                <span class="ed-label">Points</span>
+                <div class="ed-controls">
+                  <span class="ed-val" id="ed-points" style="font-size:18px;color:var(--blue)">0</span>
+                </div>
+              </div>
+
+              <div class="divider"></div>
+              <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:8px">Adjust Points</p>
+              <div class="pts-grid">
+                <button class="pts-btn" onclick="adjustPoints(-1)">−1 Pt</button>
+                <button class="pts-btn" onclick="adjustPoints(1)">+1 Pt</button>
+                <button class="pts-btn" onclick="adjustPoints(2)">+2 Pts</button>
+              </div>
+
+              <div class="divider"></div>
+              <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:8px">Net Run Rate</p>
+              <div style="display:flex;gap:8px;align-items:center">
+                <input type="number" step="0.01" id="ed-nrr" class="nrr-input" aria-label="Net Run Rate" placeholder="0.00" />
+                <button class="btn btn-blue btn-sm" onclick="saveNRR()">Save NRR</button>
+              </div>
+
+              <div class="divider"></div>
+              <button class="save-btn" onclick="saveAllChanges()" aria-label="Save all changes">💾 Save Changes</button>
+              <button class="undo-btn"  onclick="undoLast()">↩ Undo Last Change</button>
+              <button class="reset-btn" onclick="resetTeam()">🗑 Reset This Team</button>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ===== PREVIEW TABLE ===== -->
+      <div>
+        <div class="admin-preview">
+          <div class="admin-header-row">
+            <span class="card-title">Live Preview — <span id="preview-league-label">SR League</span></span>
+            <a href="points-table.html" class="btn btn-blue btn-sm" target="_blank">View Public Page ↗</a>
+          </div>
+          <div class="table-scroll">
+            <table class="admin-preview-table" aria-label="Live standings preview">
+              <thead>
+                <tr>
+                  <th>Pos</th><th>Team</th><th>P</th><th>W</th><th>L</th><th>T/NR</th><th>NRR</th><th>PTS</th>
+                </tr>
+              </thead>
+              <tbody id="admin-preview-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;font-size:12px;color:var(--text-muted);padding:0 4px">
+          Changes are saved to your browser automatically. To make them permanent for all users, update <code>js/data.js</code> and redeploy.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- /admin-dashboard -->
+
+<script src="js/data.js"></script>
+<script src="js/common.js"></script>
+<script src="js/admin.js"></script>
+<script>
+  // Keep data-management label in sync with active league
+  const origSwitch = switchAdminLeague;
+  switchAdminLeague = function(league) {
+    origSwitch(league);
+    const dl = document.getElementById("data-league-label");
+    const pl = document.getElementById("preview-league-label");
+    const label = league === "sr" ? "SR League" : "JR League";
+    if (dl) dl.textContent = league.toUpperCase();
+    if (pl) pl.textContent = label;
+    // update aria-pressed on tabs
+    document.querySelectorAll(".admin-league-tab").forEach(btn => {
+      btn.setAttribute("aria-pressed", btn.dataset.league === league ? "true" : "false");
+    });
+  };
+</script>
+</body>
+</html>

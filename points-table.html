@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Points Table — CSD &amp; CSIT Tournament</title>
+  <meta name="description" content="SR and JR league standings for CSD &amp; CSIT Cricket Tournament 2026." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* League tab switcher */
+    .league-tabs {
+      display: flex;
+      gap: 0;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 4px;
+      width: fit-content;
+      margin-bottom: 20px;
+    }
+    .league-tab {
+      padding: 9px 24px;
+      border-radius: 7px;
+      border: none;
+      background: transparent;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all .15s;
+      letter-spacing: .3px;
+    }
+    .league-tab.active {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(29,111,243,.25);
+    }
+    .league-tab:hover:not(.active) {
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+    .league-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 5px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .badge-sr { background: #EFF6FF; color: var(--blue); }
+    .badge-jr { background: #FEF9C3; color: #854D0E; }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-area" aria-label="Home">
+      <img src="asserts/hpl_Logo.png" alt="HPL 2026" class="nav-hpl-logo" />
+      <div class="logo-text">
+        <div class="logo-title">CSD &amp; CSIT</div>
+        <div class="logo-sub">Cricket Tournament</div>
+      </div>
+    </a>
+    <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+      <span class="bar1"></span><span class="bar2"></span><span class="bar3"></span>
+    </button>
+    <ul class="nav-menu" id="nav-menu" role="list">
+      <li><a href="index.html" class="nav-link">🏠 Home</a></li>
+      <li><a href="matches.html" class="nav-link">Matches</a></li>
+      <li><a href="points-table.html" class="nav-link active">🏆 Points Table</a></li>
+      <li><a href="leaders.html" class="nav-link">🏅 Leaders</a></li>
+      <li><a href="scorer.html" class="nav-link nav-scorer">Scorer Portal</a></li>
+      <li><a href="admin.html" class="nav-link nav-admin">🔒 Admin</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="page-banner">
+  <div class="container">
+    <h1>🏆 Tournament Standings</h1>
+    <p>SR &amp; JR League · Top 2 qualify for the final</p>
+  </div>
+</div>
+
+<div class="container page-body">
+
+  <!-- League tabs -->
+  <div class="league-tabs" role="tablist" aria-label="League selector">
+    <button class="league-tab active" id="tab-sr" role="tab" aria-selected="true"  aria-controls="panel-sr"  onclick="switchLeague('sr')">
+      SR League <span class="league-badge badge-sr">SR</span>
+    </button>
+    <button class="league-tab"        id="tab-jr" role="tab" aria-selected="false" aria-controls="panel-jr"  onclick="switchLeague('jr')">
+      JR League <span class="league-badge badge-jr">JR</span>
+    </button>
+  </div>
+
+  <!-- SR Panel -->
+  <div id="panel-sr" role="tabpanel" aria-labelledby="tab-sr">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">SR League — Tournament Standings</span>
+        <span style="font-size:12px;color:var(--text-muted)" id="lu-sr"></span>
+      </div>
+      <div class="table-scroll">
+        <table class="standings-table" aria-label="SR League standings">
+          <thead>
+            <tr>
+              <th class="th-center" scope="col">POS</th>
+              <th scope="col">TEAM / HOUSE</th>
+              <th class="th-center" scope="col" title="Played">P</th>
+              <th class="th-center" scope="col" title="Wins">W</th>
+              <th class="th-center" scope="col" title="Losses">L</th>
+              <th class="th-center" scope="col" title="Ties/No Result">T/NR</th>
+              <th class="th-center" scope="col" title="Net Run Rate">NRR</th>
+              <th class="th-center" scope="col" title="Points">PTS</th>
+            </tr>
+          </thead>
+          <tbody id="sr-standings-body"></tbody>
+        </table>
+      </div>
+      <div class="qualify-legend">
+        <span class="legend-dot"></span>
+        <span>Top 2 teams qualify for the Final</span>
+        <span style="margin-left:12px;color:var(--green);font-weight:600">▲ NRR positive</span>
+        <span style="color:var(--red);font-weight:600">▼ NRR negative</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- JR Panel -->
+  <div id="panel-jr" role="tabpanel" aria-labelledby="tab-jr" style="display:none">
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">JR League — Tournament Standings</span>
+        <span style="font-size:12px;color:var(--text-muted)" id="lu-jr"></span>
+      </div>
+      <div class="table-scroll">
+        <table class="standings-table" aria-label="JR League standings">
+          <thead>
+            <tr>
+              <th class="th-center" scope="col">POS</th>
+              <th scope="col">TEAM / HOUSE</th>
+              <th class="th-center" scope="col" title="Played">P</th>
+              <th class="th-center" scope="col" title="Wins">W</th>
+              <th class="th-center" scope="col" title="Losses">L</th>
+              <th class="th-center" scope="col" title="Ties/No Result">T/NR</th>
+              <th class="th-center" scope="col" title="Net Run Rate">NRR</th>
+              <th class="th-center" scope="col" title="Points">PTS</th>
+            </tr>
+          </thead>
+          <tbody id="jr-standings-body"></tbody>
+        </table>
+      </div>
+      <div class="qualify-legend">
+        <span class="legend-dot"></span>
+        <span>Top 2 teams qualify for the Final</span>
+        <span style="margin-left:12px;color:var(--green);font-weight:600">▲ NRR positive</span>
+        <span style="color:var(--red);font-weight:600">▼ NRR negative</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:12px;font-size:12px;color:var(--text-muted);padding:0 4px">
+    Sorted by: Points → NRR → Wins. Admin can update standings via the <a href="admin.html" style="color:var(--blue);font-weight:600">Admin Panel</a>.
+  </div>
+
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/common.js"></script>
+<script>
+  // ---- Render a standings tbody ----
+  function renderTable(teams, tbodyId) {
+    const sorted = sortTeams(teams);
+    const tbody = document.getElementById(tbodyId);
+    tbody.innerHTML = "";
+    sorted.forEach((team, index) => {
+      const pos = index + 1;
+      const nrr = parseFloat(team.nrr);
+      const nrrClass = nrr > 0 ? "nrr-pos" : nrr < 0 ? "nrr-neg" : "nrr-zero";
+      const logoHtml = team.logo
+        ? `<img src="${team.logo}" alt="${team.name}" class="team-logo" />`
+        : `<span class="team-dot" style="background:${team.color || '#287BEA'}"></span>`;
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="col-pos">
+          <span class="pos-badge ${pos <= 2 ? 'pos-qualify' : ''}">${pos}</span>
+        </td>
+        <td class="col-team" style="display:flex;align-items:center;gap:0">
+          ${logoHtml}
+          <span class="team-name">${team.name}</span>
+        </td>
+        <td class="col-stat">${team.played}</td>
+        <td class="col-stat">${team.wins}</td>
+        <td class="col-stat">${team.losses}</td>
+        <td class="col-stat">${(team.ties || 0) + (team.noResult || 0)}</td>
+        <td class="col-nrr ${nrrClass}">${formatNRR(nrr)}</td>
+        <td class="col-pts">${team.points}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ---- Tab switcher ----
+  function switchLeague(league) {
+    const srPanel = document.getElementById("panel-sr");
+    const jrPanel = document.getElementById("panel-jr");
+    const tabSR   = document.getElementById("tab-sr");
+    const tabJR   = document.getElementById("tab-jr");
+
+    if (league === "sr") {
+      srPanel.style.display = "block";
+      jrPanel.style.display = "none";
+      tabSR.classList.add("active");    tabSR.setAttribute("aria-selected", "true");
+      tabJR.classList.remove("active"); tabJR.setAttribute("aria-selected", "false");
+    } else {
+      srPanel.style.display = "none";
+      jrPanel.style.display = "block";
+      tabSR.classList.remove("active"); tabSR.setAttribute("aria-selected", "false");
+      tabJR.classList.add("active");    tabJR.setAttribute("aria-selected", "true");
+    }
+    // persist tab choice
+    sessionStorage.setItem("pt_active_league", league);
+  }
+
+  // ---- Init ----
+  document.addEventListener("DOMContentLoaded", () => {
+    renderTable(loadTeams(),   "sr-standings-body");
+    renderTable(loadJRTeams(), "jr-standings-body");
+
+    const ts = new Date().toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" });
+    document.getElementById("lu-sr").textContent = "Updated " + ts;
+    document.getElementById("lu-jr").textContent = "Updated " + ts;
+
+    // restore last-used tab
+    const saved = sessionStorage.getItem("pt_active_league");
+    if (saved === "jr") switchLeague("jr");
+  });
+</script>
+</body>
+</html>

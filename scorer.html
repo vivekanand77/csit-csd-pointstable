@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scorer Portal — CSD &amp; CSIT Tournament</title>
+  <meta name="description" content="Live scoring interface for CSD &amp; CSIT Cricket Tournament." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo-area" aria-label="Home">
+      <img src="asserts/hpl_Logo.png" alt="HPL 2026" class="nav-hpl-logo" />
+      <div class="logo-text">
+        <div class="logo-title">CSD &amp; CSIT</div>
+        <div class="logo-sub">Cricket Tournament</div>
+      </div>
+    </a>
+    <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+      <span class="bar1"></span><span class="bar2"></span><span class="bar3"></span>
+    </button>
+    <ul class="nav-menu" id="nav-menu" role="list">
+      <li><a href="index.html" class="nav-link">🏠 Home</a></li>
+      <li><a href="matches.html" class="nav-link">Matches</a></li>
+      <li><a href="points-table.html" class="nav-link">🏆 Points Table</a></li>
+      <li><a href="leaders.html" class="nav-link">🏅 Leaders</a></li>
+      <li><a href="scorer.html" class="nav-link nav-scorer active">Scorer Portal</a></li>
+      <li><a href="admin.html" class="nav-link nav-admin">🔒 Admin</a></li>
+    </ul>
+  </div>
+</header>
+
+<div class="page-banner">
+  <div class="container">
+    <h1>📊 Scorer Portal</h1>
+    <p>Demo interface — frontend only, no backend</p>
+  </div>
+</div>
+
+<div class="container page-body">
+  <div class="scorer-wrap">
+
+    <!-- Match select -->
+    <div class="card" style="margin-bottom:16px">
+      <div class="card-header"><span class="card-title">Select Match</span></div>
+      <div style="padding:14px">
+        <select class="select-input" id="match-select" aria-label="Select match">
+          <option value="">— Choose a match —</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Score display -->
+    <div class="score-display">
+      <div class="score-teams" id="sc-teams">Select a match above</div>
+      <div class="score-runs" id="sc-score">0/0</div>
+      <div class="score-over" id="sc-overs">Overs: 0.0 / 10</div>
+    </div>
+
+    <!-- Scoring buttons -->
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-header"><span class="card-title">Runs</span></div>
+      <div style="padding:14px">
+        <div class="scoring-btns" id="run-btns">
+          <button class="score-btn" onclick="addRun(0)" aria-label="Dot ball">0</button>
+          <button class="score-btn" onclick="addRun(1)" aria-label="1 run">1</button>
+          <button class="score-btn" onclick="addRun(2)" aria-label="2 runs">2</button>
+          <button class="score-btn" onclick="addRun(3)" aria-label="3 runs">3</button>
+          <button class="score-btn btn-boundary" onclick="addRun(4)" aria-label="Four">4</button>
+          <button class="score-btn btn-boundary" onclick="addRun(6)" aria-label="Six">6</button>
+          <button class="score-btn btn-danger" onclick="addWicket()" aria-label="Wicket">W</button>
+          <button class="score-btn" onclick="undoLast()" aria-label="Undo last ball" style="font-size:13px">↩ Undo</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+      <div class="card-header"><span class="card-title">Extras</span></div>
+      <div style="padding:14px">
+        <div class="scoring-btns">
+          <button class="score-btn btn-extra" onclick="addExtra('WD')" aria-label="Wide">Wide</button>
+          <button class="score-btn btn-extra" onclick="addExtra('NB')" aria-label="No ball">No Ball</button>
+          <button class="score-btn btn-extra" onclick="addExtra('B')" aria-label="Bye">Bye</button>
+          <button class="score-btn btn-extra" onclick="addExtra('LB')" aria-label="Leg bye">Leg Bye</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="card-title">Ball-by-Ball</span></div>
+      <div id="ball-log" style="padding:14px;font-size:13px;color:var(--text-muted);min-height:60px;font-family:monospace;line-height:1.8"></div>
+    </div>
+
+    <div style="margin-top:12px;text-align:center">
+      <button class="btn btn-blue btn-sm" onclick="resetInnings()">Reset Innings</button>
+    </div>
+
+    <div class="scorer-placeholder" style="margin-top:20px">
+      <div class="placeholder-icon">⚠️</div>
+      <p style="font-weight:600;color:var(--navy)">Demo Mode Only</p>
+      <p style="font-size:13px;margin-top:4px">This is a frontend-only scoring demo. Scores are not saved to any server. Use the <a href="admin.html" style="color:var(--blue)">Admin Panel</a> to update official standings.</p>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/common.js"></script>
+<script>
+let innings = { runs: 0, wickets: 0, balls: 0, extras: 0, log: [] };
+let inningsHistory = [];
+
+function render() {
+  const overs = Math.floor(innings.balls / 6);
+  const extra = innings.balls % 6;
+  document.getElementById("sc-score").textContent = innings.runs + "/" + innings.wickets;
+  document.getElementById("sc-overs").textContent = `Overs: ${overs}.${extra} / 10`;
+  const log = document.getElementById("ball-log");
+  log.innerHTML = innings.log.slice(-30).reverse().map(e => `<span style="display:inline-block;background:var(--bg);padding:2px 8px;border-radius:6px;margin:2px">${e}</span>`).join(" ");
+}
+
+function save() { inningsHistory.push(JSON.parse(JSON.stringify(innings))); }
+
+function addRun(r) {
+  save();
+  innings.runs += r;
+  innings.balls++;
+  innings.log.push(r === 0 ? "·" : String(r));
+  render();
+}
+function addWicket() {
+  if (innings.wickets >= 10) return;
+  save();
+  innings.wickets++;
+  innings.balls++;
+  innings.log.push("W");
+  render();
+}
+function addExtra(type) {
+  save();
+  innings.runs += 1;
+  innings.extras++;
+  if (type !== "WD" && type !== "NB") innings.balls++;
+  innings.log.push(type);
+  render();
+}
+function undoLast() {
+  if (!inningsHistory.length) return;
+  innings = inningsHistory.pop();
+  render();
+}
+function resetInnings() {
+  if (!confirm("Reset this innings?")) return;
+  innings = { runs: 0, wickets: 0, balls: 0, extras: 0, log: [] };
+  inningsHistory = [];
+  render();
+}
+
+// populate match select
+document.addEventListener("DOMContentLoaded", () => {
+  const sel = document.getElementById("match-select");
+  DEFAULT_MATCHES.forEach(m => {
+    const opt = document.createElement("option");
+    opt.value = m.id;
+    opt.textContent = `Match #${m.matchNo}: ${m.teamA} vs ${m.teamB}`;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener("change", () => {
+    const m = DEFAULT_MATCHES.find(x => x.id == sel.value);
+    if (m) document.getElementById("sc-teams").textContent = `${m.teamA} vs ${m.teamB}`;
+    else document.getElementById("sc-teams").textContent = "Select a match above";
+  });
+  render();
+});
+</script>
+</body>
+</html>
