@@ -6,7 +6,7 @@
 // ⚠️  INCREMENT THIS every time you edit default team data below.
 // The browser will automatically clear cached localStorage and
 // load the fresh defaults from this file on next page load.
-const DATA_VERSION = "2026-09-07-v5";
+const DATA_VERSION = "2026-09-07-v6";
 
 
 const DEFAULT_TEAMS = [

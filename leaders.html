@@ -3,39 +3,42 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Leaders — CSD &amp; CSIT Tournament</title>
-  <meta name="description" content="Top run scorers and wicket takers in the CSD &amp; CSIT Cricket Tournament 2026." />
+  <title>Tournament Leaders — CSD &amp; CSIT Cricket League 2026</title>
+  <meta name="description" content="Top run scorers and top wicket takers in CSD &amp; CSIT Cricket League 2026." />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="index.html" class="logo-area" aria-label="Home">
+    <a href="index.html" class="logo-area" aria-label="CSD &amp; CSIT Cricket League Home">
       <img src="asserts/hpl_Logo.png" alt="HPL 2026" class="nav-hpl-logo" />
       <div class="logo-text">
         <div class="logo-title">CSD &amp; CSIT</div>
-        <div class="logo-sub">Cricket Tournament</div>
+        <div class="logo-sub">Cricket League 2026</div>
       </div>
     </a>
     <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
-      <span class="bar1"></span><span class="bar2"></span><span class="bar3"></span>
+      <span class="bar1"></span>
+      <span class="bar2"></span>
+      <span class="bar3"></span>
     </button>
-    <ul class="nav-menu" id="nav-menu" role="list">
-      <li><a href="index.html" class="nav-link">🏠 Home</a></li>
-      <li><a href="matches.html" class="nav-link">Matches</a></li>
-      <li><a href="points-table.html" class="nav-link">🏆 Points Table</a></li>
-      <li><a href="leaders.html" class="nav-link active">🏅 Leaders</a></li>
-      <li><a href="scorer.html" class="nav-link nav-scorer">Scorer Portal</a></li>
-      <li><a href="admin.html" class="nav-link nav-admin">🔒 Admin</a></li>
-    </ul>
+    <nav>
+      <ul class="nav-menu" id="nav-menu" role="list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="matches.html" class="nav-link">Matches</a></li>
+        <li><a href="points-table.html" class="nav-link">Points Table</a></li>
+        <li><a href="leaders.html" class="nav-link active">Leaders</a></li>
+        <li><a href="admin.html" class="nav-link nav-admin">Admin</a></li>
+      </ul>
+    </nav>
   </div>
 </header>
 
 <div class="page-banner">
   <div class="container">
-    <h1>🏅 Tournament Leaders</h1>
-    <p>Top performers across all matches</p>
+    <h1>Tournament Leaders</h1>
+    <p>Top batting and bowling individual performances across the season</p>
   </div>
 </div>
 
@@ -43,13 +46,16 @@
   <div class="leaders-grid">
 
     <!-- Run Scorers -->
-    <div class="card">
-      <div class="card-header"><span class="card-title">🏏 Top Run Scorers</span></div>
+    <div class="section-panel">
+      <div class="panel-header">
+        <span class="panel-title">Top Run Scorers</span>
+        <span style="font-size:12px;color:var(--text-muted)" id="scorers-count"></span>
+      </div>
       <div class="table-scroll">
         <table class="leader-table" aria-label="Top run scorers">
           <thead>
             <tr>
-              <th>#</th><th>Player</th><th>R</th><th>B</th><th>4s</th><th>6s</th><th>SR</th><th>HS</th>
+              <th>#</th><th>Player</th><th>Runs</th><th>Balls</th><th>4s</th><th>6s</th><th>SR</th><th>HS</th>
             </tr>
           </thead>
           <tbody id="runs-body"></tbody>
@@ -58,13 +64,16 @@
     </div>
 
     <!-- Wicket Takers -->
-    <div class="card">
-      <div class="card-header"><span class="card-title">🎯 Top Wicket Takers</span></div>
+    <div class="section-panel">
+      <div class="panel-header">
+        <span class="panel-title">Top Wicket Takers</span>
+        <span style="font-size:12px;color:var(--text-muted)" id="bowlers-count"></span>
+      </div>
       <div class="table-scroll">
         <table class="leader-table" aria-label="Top wicket takers">
           <thead>
             <tr>
-              <th>#</th><th>Player</th><th>Wkts</th><th>Ov</th><th>Runs</th><th>Eco</th><th>Best</th>
+              <th>#</th><th>Player</th><th>Wkts</th><th>Overs</th><th>Runs</th><th>Economy</th><th>Best</th>
             </tr>
           </thead>
           <tbody id="wkts-body"></tbody>
@@ -75,6 +84,18 @@
   </div>
 </div>
 
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>CSD &amp; CSIT Cricket Tournament 2026 · Official Department League</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="points-table.html">Standings</a>
+      <a href="matches.html">Schedule</a>
+      <a href="admin.html">Admin Portal</a>
+    </div>
+  </div>
+</footer>
+
 <script src="js/data.js"></script>
 <script src="js/common.js"></script>
 <script>
@@ -82,32 +103,48 @@ document.addEventListener("DOMContentLoaded", () => {
   const rankClass = i => ["gold","silver","bronze"][i] || "";
 
   // Run scorers
+  const scorers = loadRunScorers();
   const rb = document.getElementById("runs-body");
-  DEFAULT_RUN_SCORERS.forEach((p, i) => {
-    rb.innerHTML += `<tr>
-      <td><span class="rank-badge ${rankClass(i)}">${p.rank}</span></td>
-      <td><div class="leader-name">${p.name}</div><div class="leader-team">${p.team}</div></td>
-      <td class="leader-stat">${p.runs}</td>
-      <td style="color:var(--text-muted)">${p.balls}</td>
-      <td>${p.fours}</td><td>${p.sixes}</td>
-      <td style="font-weight:600">${p.sr}</td>
-      <td style="color:var(--green);font-weight:600">${p.hs}</td>
-    </tr>`;
-  });
+  const scCount = document.getElementById("scorers-count");
+  if (scCount) scCount.textContent = `${scorers.length} Players`;
+  rb.innerHTML = "";
+  if (!scorers.length) {
+    rb.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text-muted)">No batting stats recorded yet.</td></tr>';
+  } else {
+    scorers.forEach((p, i) => {
+      rb.innerHTML += `<tr>
+        <td><span class="rank-badge ${rankClass(i)}">${p.rank || (i+1)}</span></td>
+        <td><div class="leader-name">${p.name}</div><div class="leader-team">${p.team}</div></td>
+        <td class="leader-stat">${p.runs}</td>
+        <td style="color:var(--text-muted)">${p.balls ?? '—'}</td>
+        <td>${p.fours ?? '—'}</td><td>${p.sixes ?? '—'}</td>
+        <td style="font-weight:600">${p.sr ?? '—'}</td>
+        <td style="color:var(--state-completed);font-weight:600">${p.hs ?? '—'}</td>
+      </tr>`;
+    });
+  }
 
   // Wicket takers
+  const bowlers = loadWicketTakers();
   const wb = document.getElementById("wkts-body");
-  DEFAULT_WICKET_TAKERS.forEach((p, i) => {
-    wb.innerHTML += `<tr>
-      <td><span class="rank-badge ${rankClass(i)}">${p.rank}</span></td>
-      <td><div class="leader-name">${p.name}</div><div class="leader-team">${p.team}</div></td>
-      <td class="leader-stat">${p.wickets}</td>
-      <td style="color:var(--text-muted)">${p.overs}</td>
-      <td>${p.runs}</td>
-      <td style="font-weight:600">${p.economy}</td>
-      <td style="color:var(--blue);font-weight:600">${p.best}</td>
-    </tr>`;
-  });
+  const boCount = document.getElementById("bowlers-count");
+  if (boCount) boCount.textContent = `${bowlers.length} Players`;
+  wb.innerHTML = "";
+  if (!bowlers.length) {
+    wb.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--text-muted)">No bowling stats recorded yet.</td></tr>';
+  } else {
+    bowlers.forEach((p, i) => {
+      wb.innerHTML += `<tr>
+        <td><span class="rank-badge ${rankClass(i)}">${p.rank || (i+1)}</span></td>
+        <td><div class="leader-name">${p.name}</div><div class="leader-team">${p.team}</div></td>
+        <td class="leader-stat">${p.wickets}</td>
+        <td style="color:var(--text-muted)">${p.overs ?? '—'}</td>
+        <td>${p.runs ?? '—'}</td>
+        <td style="font-weight:600">${p.economy ?? '—'}</td>
+        <td style="color:var(--blue);font-weight:600">${p.best ?? '—'}</td>
+      </tr>`;
+    });
+  }
 });
 </script>
 </body>

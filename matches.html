@@ -3,93 +3,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Matches — CSD &amp; CSIT Tournament</title>
-  <meta name="description" content="Match schedule and results for CSD &amp; CSIT Cricket Tournament 2026." />
+  <title>Match Fixtures &amp; Schedule — CSD &amp; CSIT Cricket League 2026</title>
+  <meta name="description" content="Match schedule, upcoming fixtures, and completed results for CSD &amp; CSIT Cricket League 2026." />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="index.html" class="logo-area" aria-label="Home">
+    <a href="index.html" class="logo-area" aria-label="CSD &amp; CSIT Cricket League Home">
       <img src="asserts/hpl_Logo.png" alt="HPL 2026" class="nav-hpl-logo" />
       <div class="logo-text">
         <div class="logo-title">CSD &amp; CSIT</div>
-        <div class="logo-sub">Cricket Tournament</div>
+        <div class="logo-sub">Cricket League 2026</div>
       </div>
     </a>
     <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
-      <span class="bar1"></span><span class="bar2"></span><span class="bar3"></span>
+      <span class="bar1"></span>
+      <span class="bar2"></span>
+      <span class="bar3"></span>
     </button>
-    <ul class="nav-menu" id="nav-menu" role="list">
-      <li><a href="index.html" class="nav-link">🏠 Home</a></li>
-      <li><a href="matches.html" class="nav-link active">Matches</a></li>
-      <li><a href="points-table.html" class="nav-link">🏆 Points Table</a></li>
-      <li><a href="leaders.html" class="nav-link">🏅 Leaders</a></li>
-      <li><a href="scorer.html" class="nav-link nav-scorer">Scorer Portal</a></li>
-      <li><a href="admin.html" class="nav-link nav-admin">🔒 Admin</a></li>
-    </ul>
+    <nav>
+      <ul class="nav-menu" id="nav-menu" role="list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="matches.html" class="nav-link active">Matches</a></li>
+        <li><a href="points-table.html" class="nav-link">Points Table</a></li>
+        <li><a href="leaders.html" class="nav-link">Leaders</a></li>
+        <li><a href="admin.html" class="nav-link nav-admin">Admin</a></li>
+      </ul>
+    </nav>
   </div>
 </header>
 
 <div class="page-banner">
   <div class="container">
-    <h1>📅 Match Schedule &amp; Results</h1>
-    <p>All league fixtures — upcoming, live, and completed</p>
+    <h1>Match Schedule &amp; Results</h1>
+    <p>All tournament fixtures across Senior and Junior leagues</p>
   </div>
 </div>
 
 <div class="container page-body">
   <!-- Filter tabs -->
-  <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
-    <button class="btn btn-blue btn-sm filter-tab" data-filter="ALL" id="tab-all">All</button>
-    <button class="btn btn-sm filter-tab" style="background:#EFF6FF;color:var(--blue)" data-filter="UPCOMING" id="tab-upcoming">Upcoming</button>
-    <button class="btn btn-sm filter-tab" style="background:#DCFCE7;color:#16A34A" data-filter="COMPLETED" id="tab-completed">Completed</button>
+  <div style="display:flex;gap:6px;margin-bottom:22px;flex-wrap:wrap">
+    <button class="btn btn-blue btn-sm filter-tab" data-filter="ALL" id="tab-all">All Matches</button>
+    <button class="btn btn-sm filter-tab" style="background:#EFF6FF;color:var(--blue);border-color:#DBEAFE" data-filter="UPCOMING" id="tab-upcoming">Upcoming</button>
+    <button class="btn btn-sm filter-tab" style="background:#FEF2F2;color:var(--state-live);border-color:#FECACA" data-filter="LIVE" id="tab-live">Live</button>
+    <button class="btn btn-sm filter-tab" style="background:#F0FDF4;color:var(--state-completed);border-color:#DCFCE7" data-filter="COMPLETED" id="tab-completed">Completed</button>
   </div>
+  
   <div class="matches-grid" id="matches-container"></div>
 </div>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>CSD &amp; CSIT Cricket Tournament 2026 · Official Department League</div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="points-table.html">Standings</a>
+      <a href="leaders.html">Leaderboard</a>
+      <a href="admin.html">Admin Portal</a>
+    </div>
+  </div>
+</footer>
 
 <script src="js/data.js"></script>
 <script src="js/common.js"></script>
 <script src="js/matches.js"></script>
 <script>
-// Filter tabs
 let currentFilter = "ALL";
 document.querySelectorAll(".filter-tab").forEach(btn => {
   btn.addEventListener("click", () => {
     currentFilter = btn.dataset.filter;
-    document.querySelectorAll(".filter-tab").forEach(b => { b.className = "btn btn-sm filter-tab"; b.style.background=""; b.style.color=""; });
+    document.querySelectorAll(".filter-tab").forEach(b => { 
+      b.className = "btn btn-sm filter-tab"; 
+      b.style.background = ""; 
+      b.style.color = ""; 
+      b.style.borderColor = "";
+    });
     btn.classList.add("btn-blue");
-    // re-render with filter
+    
     const all = loadMatches();
     const matches = currentFilter === "ALL" ? all : all.filter(m => m.status === currentFilter);
     const container = document.getElementById("matches-container");
     const order = { LIVE: 0, UPCOMING: 1, COMPLETED: 2 };
     const sorted = [...matches].sort((a, b) => (order[a.status]??3)-(order[b.status]??3));
     container.innerHTML = "";
-    if (!sorted.length) { container.innerHTML = '<p style="color:var(--text-muted);padding:20px">No matches found.</p>'; return; }
+    if (!sorted.length) {
+      container.innerHTML = '<p style="color:var(--text-muted);padding:30px;text-align:center;grid-column:1/-1;">No matches found for this category.</p>';
+      return;
+    }
     sorted.forEach(m => {
       const isCompleted = m.status === "COMPLETED";
       const card = document.createElement("div");
       card.className = `match-card ${m.status.toLowerCase()}`;
       card.innerHTML = `
-        <div class="match-card-header"><span class="match-no">Match #${m.matchNo}</span>${statusBadge(m.status)}</div>
+        <div class="match-card-header">
+          <span class="match-no">Match #${m.matchNo}</span>
+          ${statusBadge(m.status)}
+        </div>
         <div class="match-teams">
           <div class="match-team ${isCompleted&&m.result&&m.result.startsWith(m.teamA)?'winner':''}">
             <span class="team-label">${m.teamA}</span>
-            ${isCompleted?`<span class="match-score">${m.scoreA||'—'}</span>`:''}
+            ${m.scoreA?`<span class="match-score">${m.scoreA}</span>`:''}
           </div>
           <div class="vs-divider">VS</div>
           <div class="match-team ${isCompleted&&m.result&&m.result.startsWith(m.teamB)?'winner':''}">
             <span class="team-label">${m.teamB}</span>
-            ${isCompleted?`<span class="match-score">${m.scoreB||'—'}</span>`:''}
+            ${m.scoreB?`<span class="match-score">${m.scoreB}</span>`:''}
           </div>
         </div>
-        ${isCompleted&&m.result?`<div class="match-result">${m.result}</div>`:''}
+        ${m.result?`<div class="match-result">${m.result}</div>`:''}
         <div class="match-meta">
-          <span>📅 ${formatDate(m.date)}</span>
-          <span>🕐 ${m.time}</span>
-          <span>📍 ${m.venue}</span>
+          <span>Date: ${formatDate(m.date)}</span>
+          <span>Time: ${m.time || 'TBD'}</span>
+          <span>Venue: ${m.venue || 'College Ground'}</span>
         </div>`;
       container.appendChild(card);
     });

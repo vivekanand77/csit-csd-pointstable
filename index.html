@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CSD &amp; CSIT Cricket Tournament</title>
-  <meta name="description" content="Official tournament portal for the CSD &amp; CSIT Cricket Tournament — match schedules, points table, and leaderboards." />
+  <title>CSD &amp; CSIT Cricket League 2026</title>
+  <meta name="description" content="Official tournament portal for CSD &amp; CSIT Cricket League 2026 — live standings, fixture schedules, match spotlight, and leaderboards." />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
+<!-- ===== HEADER / NAVIGATION ===== -->
 <header class="site-header">
   <div class="header-inner">
-    <a href="index.html" class="logo-area" aria-label="CSD &amp; CSIT Tournament Home">
+    <a href="index.html" class="logo-area" aria-label="CSD &amp; CSIT Cricket League Home">
       <img src="asserts/hpl_Logo.png" alt="HPL 2026" class="nav-hpl-logo" />
       <div class="logo-text">
         <div class="logo-title">CSD &amp; CSIT</div>
-        <div class="logo-sub">Cricket Tournament</div>
+        <div class="logo-sub">Cricket League 2026</div>
       </div>
     </a>
     <button class="hamburger" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
@@ -24,147 +24,372 @@
       <span class="bar2"></span>
       <span class="bar3"></span>
     </button>
-    <ul class="nav-menu" id="nav-menu" role="list">
-      <li><a href="index.html" class="nav-link active">🏠 Home</a></li>
-      <li><a href="matches.html" class="nav-link">Matches</a></li>
-      <li><a href="points-table.html" class="nav-link">🏆 Points Table</a></li>
-      <li><a href="leaders.html" class="nav-link">🏅 Leaders</a></li>
-      <li><a href="scorer.html" class="nav-link nav-scorer">Scorer Portal</a></li>
-      <li><a href="admin.html" class="nav-link nav-admin">🔒 Admin</a></li>
-    </ul>
+    <nav>
+      <ul class="nav-menu" id="nav-menu" role="list">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="matches.html" class="nav-link">Matches</a></li>
+        <li><a href="points-table.html" class="nav-link">Points Table</a></li>
+        <li><a href="leaders.html" class="nav-link">Leaders</a></li>
+        <li><a href="admin.html" class="nav-link nav-admin">Admin</a></li>
+      </ul>
+    </nav>
   </div>
 </header>
 
-<!-- ===== HERO ===== -->
-<section class="hero">
+<!-- ===== COMPACT TOURNAMENT HERO ===== -->
+<section class="tournament-hero">
   <div class="container">
-    <div class="hero-badge">🏏 Season 2026</div>
-    <h1>CSD &amp; CSIT<br /><span>Cricket Tournament</span></h1>
-    <p class="hero-sub">The ultimate inter-house cricket championship. Follow live standings, results &amp; leaderboards.</p>
-    <div class="hero-actions">
-      <a href="matches.html" class="btn btn-primary">📅 View Matches</a>
-      <a href="points-table.html" class="btn btn-outline">🏆 Points Table</a>
+    <span class="hero-label">Season 2026</span>
+    <h1 class="hero-heading">CSD &amp; CSIT<br />Cricket League</h1>
+    <p class="hero-description">Official tournament portal for fixtures, standings and live competition updates.</p>
+    <div class="hero-cta-group">
+      <a href="points-table.html" class="btn btn-primary">Points Table</a>
+      <a href="matches.html" class="btn btn-outline">Match Fixtures</a>
     </div>
   </div>
 </section>
 
-<!-- ===== STATS ===== -->
+<!-- ===== MAIN CONTENT BODY ===== -->
 <div class="container page-body">
-  <div class="stats-row" id="home-stats">
-    <div class="stat-card"><div class="stat-val" id="stat-teams">6</div><div class="stat-label">Teams</div></div>
-    <div class="stat-card"><div class="stat-val" id="stat-matches">7</div><div class="stat-label">Matches</div></div>
-    <div class="stat-card"><div class="stat-val" id="stat-completed">4</div><div class="stat-label">Completed</div></div>
-    <div class="stat-card"><div class="stat-val" id="stat-upcoming">3</div><div class="stat-label">Upcoming</div></div>
+
+  <!-- 1. COMPACT EDITORIAL STATS STRIP -->
+  <div class="stats-overview" id="tournament-stats" aria-label="Tournament statistics overview">
+    <div class="stat-cell">
+      <span class="stat-val" id="stat-teams">5</span>
+      <span class="stat-name">Houses</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-val" id="stat-matches">7</span>
+      <span class="stat-name">Fixtures</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-val" id="stat-completed">4</span>
+      <span class="stat-name">Completed</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-val" id="stat-upcoming">3</span>
+      <span class="stat-name">Upcoming</span>
+    </div>
   </div>
 
-  <div class="home-grid">
-    <!-- Points Table Preview -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-title">🏆 Points Table</span>
-        <a href="points-table.html" class="btn btn-blue btn-sm">Full Table →</a>
+  <!-- 2. MATCH SPOTLIGHT (PRIMARY FEATURE) -->
+  <section class="spotlight-section" aria-labelledby="spotlight-heading">
+    <div class="spotlight-card" id="match-spotlight">
+      <div class="spotlight-header">
+        <div class="spotlight-eyebrow" id="spotlight-heading">
+          <span>Match Spotlight</span>
+          <span>·</span>
+          <span id="spotlight-match-no">Match #5</span>
+        </div>
+        <div id="spotlight-badge">
+          <span class="status-badge badge-upcoming">Upcoming</span>
+        </div>
       </div>
+      
+      <div class="spotlight-body">
+        <div class="spotlight-team left">
+          <div class="spotlight-team-name" id="spotlight-team-a">House Vayu (SR)</div>
+          <div class="spotlight-team-sub" id="spotlight-score-a">Team 1</div>
+        </div>
+        
+        <div>
+          <span class="spotlight-vs">VS</span>
+        </div>
+        
+        <div class="spotlight-team right">
+          <div class="spotlight-team-name" id="spotlight-team-b">House Akash (JR)</div>
+          <div class="spotlight-team-sub" id="spotlight-score-b">Team 2</div>
+        </div>
+      </div>
+
+      <div class="spotlight-footer">
+        <div class="spotlight-meta-items">
+          <div class="spotlight-meta-item">
+            <span>Date:</span>
+            <strong id="spotlight-date">13 Sep 2026</strong>
+          </div>
+          <div class="spotlight-meta-item">
+            <span>Time:</span>
+            <strong id="spotlight-time">09:00 AM</strong>
+          </div>
+          <div class="spotlight-meta-item">
+            <span>Venue:</span>
+            <strong id="spotlight-venue">College Ground B</strong>
+          </div>
+        </div>
+        <div>
+          <a href="matches.html" class="panel-action">All Fixtures →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. MAIN TOURNAMENT GRID: STANDINGS + UPCOMING FIXTURES -->
+  <div class="tournament-grid">
+
+    <!-- Left: Standings Table -->
+    <div class="section-panel" aria-labelledby="standings-title">
+      <div class="panel-header">
+        <div style="display:flex;align-items:center;gap:12px">
+          <span class="panel-title" id="standings-title">Standings</span>
+          <div class="league-pill-group" role="tablist" aria-label="Standings league selector">
+            <button class="league-pill active" id="home-pill-sr" role="tab" aria-selected="true" onclick="switchHomeLeague('sr')">SR League</button>
+            <button class="league-pill" id="home-pill-jr" role="tab" aria-selected="false" onclick="switchHomeLeague('jr')">JR League</button>
+          </div>
+        </div>
+        <a href="points-table.html" class="panel-action">Full Standings →</a>
+      </div>
+
       <div class="table-scroll">
-        <table class="standings-table">
+        <table class="standings-table" aria-label="Tournament standings preview">
           <thead>
             <tr>
               <th class="th-center">Pos</th>
-              <th>Team</th>
-              <th class="th-center">P</th>
-              <th class="th-center">W</th>
-              <th class="th-center">Pts</th>
+              <th>Team / House</th>
+              <th class="th-center" title="Played">P</th>
+              <th class="th-center" title="Won">W</th>
+              <th class="th-center" title="Net Run Rate">NRR</th>
+              <th class="th-center" title="Points">Pts</th>
             </tr>
           </thead>
           <tbody id="home-standings-body"></tbody>
         </table>
       </div>
+
+      <div class="table-footer-legend">
+        <div><span class="legend-qualify-mark"></span> Top 2 teams qualify for the Final</div>
+      </div>
     </div>
 
-    <!-- Upcoming Matches -->
-    <div class="card">
-      <div class="card-header">
-        <span class="card-title">📅 Next Matches</span>
-        <a href="matches.html" class="btn btn-blue btn-sm">All Matches →</a>
+    <!-- Right: Upcoming Fixtures List -->
+    <div class="section-panel" aria-labelledby="fixtures-title">
+      <div class="panel-header">
+        <span class="panel-title" id="fixtures-title">Upcoming Fixtures</span>
+        <a href="matches.html" class="panel-action">View All →</a>
       </div>
-      <div id="home-upcoming" style="padding:0 4px 4px;"></div>
+      <div id="home-upcoming-list"></div>
     </div>
+
   </div>
 
-  <!-- Leaders preview -->
-  <div class="home-grid" style="margin-top:20px">
-    <div class="card">
-      <div class="card-header">
-        <span class="card-title">🏅 Top Run Scorers</span>
-        <a href="leaders.html" class="btn btn-blue btn-sm">All Leaders →</a>
+  <!-- 4. TOURNAMENT LEADERS PREVIEW (COMPACT 3-ITEM EDITORIAL STRIP) -->
+  <section class="leaders-section" aria-labelledby="leaders-title">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <span class="panel-title" id="leaders-title">Tournament Leaders</span>
+      <a href="leaders.html" class="panel-action">All Leaderboards →</a>
+    </div>
+
+    <div class="leaders-editorial-grid">
+      <!-- Runs Leader -->
+      <div class="leader-card-item">
+        <div class="leader-type-tag">Top Run Scorer</div>
+        <div class="leader-player-row">
+          <span class="leader-player-name" id="leader-runs-name">—</span>
+          <span class="leader-player-stat" id="leader-runs-val">—</span>
+        </div>
+        <div class="leader-player-team" id="leader-runs-team">—</div>
       </div>
-      <div class="table-scroll">
-        <table class="leader-table">
-          <thead><tr><th>#</th><th>Player</th><th>Runs</th></tr></thead>
-          <tbody id="home-runs-body"></tbody>
-        </table>
+
+      <!-- Wickets Leader -->
+      <div class="leader-card-item">
+        <div class="leader-type-tag">Top Wicket Taker</div>
+        <div class="leader-player-row">
+          <span class="leader-player-name" id="leader-wkts-name">—</span>
+          <span class="leader-player-stat" id="leader-wkts-val">—</span>
+        </div>
+        <div class="leader-player-team" id="leader-wkts-team">—</div>
+      </div>
+
+      <!-- Best NRR -->
+      <div class="leader-card-item">
+        <div class="leader-type-tag">Top Net Run Rate</div>
+        <div class="leader-player-row">
+          <span class="leader-player-name" id="leader-nrr-name">—</span>
+          <span class="leader-player-stat" id="leader-nrr-val" style="color:var(--state-completed)">—</span>
+        </div>
+        <div class="leader-player-team" id="leader-nrr-team">—</div>
       </div>
     </div>
-    <div class="card">
-      <div class="card-header">
-        <span class="card-title">🎯 Top Wicket Takers</span>
-        <a href="leaders.html" class="btn btn-blue btn-sm">All Leaders →</a>
-      </div>
-      <div class="table-scroll">
-        <table class="leader-table">
-          <thead><tr><th>#</th><th>Player</th><th>Wkts</th></tr></thead>
-          <tbody id="home-wkts-body"></tbody>
-        </table>
-      </div>
-    </div>
-  </div>
+  </section>
+
 </div>
+
+<!-- ===== SITE FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div>CSD &amp; CSIT Cricket Tournament 2026 · Official Department League</div>
+    <div class="footer-links">
+      <a href="points-table.html">Standings</a>
+      <a href="matches.html">Schedule</a>
+      <a href="leaders.html">Leaderboard</a>
+      <a href="admin.html">Admin Portal</a>
+    </div>
+  </div>
+</footer>
 
 <script src="js/data.js"></script>
 <script src="js/common.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  // Mini standings
-  const teams = sortTeams(loadTeams()).slice(0, 6);
+let currentHomeLeague = "sr";
+
+// Render standings rows cleanly
+function renderHomeStandings() {
+  const teams = currentHomeLeague === "sr" ? loadTeams() : loadJRTeams();
+  const sorted = sortTeams(teams);
   const sb = document.getElementById("home-standings-body");
-  teams.forEach((t, i) => {
+  if (!sb) return;
+  sb.innerHTML = "";
+
+  sorted.forEach((t, i) => {
+    const nrr = parseFloat(t.nrr);
+    const nrrClass = nrr > 0 ? "nrr-pos" : nrr < 0 ? "nrr-neg" : "nrr-zero";
+    const logoHtml = t.logo
+      ? `<img src="${t.logo}" alt="" class="team-logo-sm" />`
+      : `<span class="team-dot" style="background:${t.color || '#1D6FF3'}"></span>`;
+    
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td class="col-pos"><span class="pos-badge ${i<2?'pos-qualify':''}">${i+1}</span></td>
-      <td><span class="team-dot" style="background:${t.color||'#287BEA'}"></span><span class="team-name">${t.name}</span></td>
-      <td class="col-stat">${t.played}</td><td class="col-stat">${t.wins}</td>
-      <td class="col-pts">${t.points}</td>`;
+    tr.innerHTML = `
+      <td class="col-pos"><span class="pos-num ${i < 2 ? 'top-qualify' : ''}">${i + 1}</span></td>
+      <td style="display:flex;align-items:center;gap:0;">
+        ${logoHtml}
+        <span class="team-name">${t.name}</span>
+      </td>
+      <td class="col-stat">${t.played}</td>
+      <td class="col-stat">${t.wins}</td>
+      <td class="col-nrr ${nrrClass}">${formatNRR(nrr)}</td>
+      <td class="col-pts">${t.points}</td>
+    `;
     sb.appendChild(tr);
   });
+}
 
-  // Upcoming matches
-  const matches = loadMatches().filter(m => m.status === "UPCOMING").slice(0, 3);
-  const uc = document.getElementById("home-upcoming");
-  if (!matches.length) { uc.innerHTML = '<p style="padding:20px;color:var(--text-muted);text-align:center">No upcoming matches</p>'; }
-  matches.forEach(m => {
-    const div = document.createElement("div");
-    div.style.cssText = "padding:14px 16px;border-bottom:1px solid var(--border)";
-    div.innerHTML = `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-        <span style="font-size:12px;color:var(--text-muted);font-weight:600">Match #${m.matchNo}</span>
-        <span class="badge badge-upcoming">Upcoming</span></div>
-      <div style="font-size:13px;font-weight:600;color:var(--navy)">${m.teamA} <span style="color:var(--text-muted);font-weight:400">vs</span> ${m.teamB}</div>
-      <div style="font-size:12px;color:var(--text-muted);margin-top:3px">📅 ${m.date} · 🕐 ${m.time}</div>`;
-    uc.appendChild(div);
-  });
+function switchHomeLeague(league) {
+  currentHomeLeague = league;
+  const btnSr = document.getElementById("home-pill-sr");
+  const btnJr = document.getElementById("home-pill-jr");
+  if (btnSr) { btnSr.classList.toggle("active", league === "sr"); btnSr.setAttribute("aria-selected", league === "sr"); }
+  if (btnJr) { btnJr.classList.toggle("active", league === "jr"); btnJr.setAttribute("aria-selected", league === "jr"); }
+  renderHomeStandings();
+}
 
-  // Leaders preview
-  const rb = document.getElementById("home-runs-body");
-  DEFAULT_RUN_SCORERS.slice(0,5).forEach((p,i) => {
-    const cls = ["gold","silver","bronze"][i]||"";
-    rb.innerHTML += `<tr><td><span class="rank-badge ${cls}">${p.rank}</span></td>
-      <td><div class="leader-name">${p.name}</div><div class="leader-team">${p.team}</div></td>
-      <td class="leader-stat">${p.runs}</td></tr>`;
-  });
-  const wb = document.getElementById("home-wkts-body");
-  DEFAULT_WICKET_TAKERS.slice(0,5).forEach((p,i) => {
-    const cls = ["gold","silver","bronze"][i]||"";
-    wb.innerHTML += `<tr><td><span class="rank-badge ${cls}">${p.rank}</span></td>
-      <td><div class="leader-name">${p.name}</div><div class="leader-team">${p.team}</div></td>
-      <td class="leader-stat">${p.wickets}</td></tr>`;
-  });
+document.addEventListener("DOMContentLoaded", () => {
+  // 1. Initial Standings
+  renderHomeStandings();
+
+  // 2. Tournament Statistics
+  const matches = loadMatches();
+  const completedCount = matches.filter(m => m.status === "COMPLETED").length;
+  const upcomingCount = matches.filter(m => m.status === "UPCOMING" || m.status === "LIVE").length;
+  const srTeams = loadTeams();
+  
+  const elTeams = document.getElementById("stat-teams");
+  const elMatches = document.getElementById("stat-matches");
+  const elCompleted = document.getElementById("stat-completed");
+  const elUpcoming = document.getElementById("stat-upcoming");
+  
+  if (elTeams) elTeams.textContent = srTeams.length;
+  if (elMatches) elMatches.textContent = matches.length;
+  if (elCompleted) elCompleted.textContent = completedCount;
+  if (elUpcoming) elUpcoming.textContent = upcomingCount;
+
+  // 3. Match Spotlight
+  const activeMatches = matches.filter(m => m.status === "LIVE" || m.status === "UPCOMING");
+  const spotlightMatch = activeMatches.length ? activeMatches[0] : (matches.length ? matches[matches.length - 1] : null);
+
+  if (spotlightMatch) {
+    document.getElementById("spotlight-match-no").textContent = `Match #${spotlightMatch.matchNo}`;
+    document.getElementById("spotlight-team-a").textContent = spotlightMatch.teamA;
+    document.getElementById("spotlight-team-b").textContent = spotlightMatch.teamB;
+    document.getElementById("spotlight-date").textContent = formatDate(spotlightMatch.date);
+    document.getElementById("spotlight-time").textContent = spotlightMatch.time || "09:00 AM";
+    document.getElementById("spotlight-venue").textContent = spotlightMatch.venue || "College Ground";
+    
+    const badgeContainer = document.getElementById("spotlight-badge");
+    if (badgeContainer) {
+      if (spotlightMatch.status === "LIVE") {
+        badgeContainer.innerHTML = '<span class="status-badge badge-live">Live Match</span>';
+      } else if (spotlightMatch.status === "COMPLETED") {
+        badgeContainer.innerHTML = '<span class="status-badge badge-completed">Completed</span>';
+      } else {
+        badgeContainer.innerHTML = '<span class="status-badge badge-upcoming">Upcoming</span>';
+      }
+    }
+
+    const scoreA = document.getElementById("spotlight-score-a");
+    const scoreB = document.getElementById("spotlight-score-b");
+    if (spotlightMatch.scoreA) scoreA.textContent = spotlightMatch.scoreA;
+    else scoreA.textContent = spotlightMatch.status === "COMPLETED" ? "—" : "House 1";
+
+    if (spotlightMatch.scoreB) scoreB.textContent = spotlightMatch.scoreB;
+    else scoreB.textContent = spotlightMatch.status === "COMPLETED" ? "—" : "House 2";
+  }
+
+  // 4. Upcoming Fixtures List
+  const ucContainer = document.getElementById("home-upcoming-list");
+  if (ucContainer) {
+    const displayMatches = activeMatches.length ? activeMatches.slice(0, 3) : matches.slice(-3).reverse();
+    ucContainer.innerHTML = "";
+    if (!displayMatches.length) {
+      ucContainer.innerHTML = '<p style="padding:24px;color:var(--text-muted);text-align:center">No fixtures scheduled.</p>';
+    } else {
+      displayMatches.forEach(m => {
+        const item = document.createElement("div");
+        item.className = "fixture-row";
+        const badgeHtml = m.status === "LIVE"
+          ? '<span class="status-badge badge-live">Live</span>'
+          : m.status === "COMPLETED"
+          ? '<span class="status-badge badge-completed">Completed</span>'
+          : '<span class="status-badge badge-upcoming">Upcoming</span>';
+
+        item.innerHTML = `
+          <div class="fixture-row-top">
+            <span>Match #${m.matchNo}</span>
+            ${badgeHtml}
+          </div>
+          <div class="fixture-teams-line">
+            <span class="fixture-team-name">${m.teamA}</span>
+            <span class="fixture-vs-tag">VS</span>
+            <span class="fixture-team-name right">${m.teamB}</span>
+          </div>
+          <div class="fixture-details-line">
+            <span>${formatDate(m.date)}</span>
+            <span>·</span>
+            <span>${m.time || 'TBD'}</span>
+            <span>·</span>
+            <span>${m.venue || 'College Ground'}</span>
+          </div>
+        `;
+        ucContainer.appendChild(item);
+      });
+    }
+  }
+
+  // 5. Leaders Editorial Spotlight
+  const scorers = loadRunScorers();
+  if (scorers && scorers.length) {
+    const topScorer = scorers[0];
+    document.getElementById("leader-runs-name").textContent = topScorer.name;
+    document.getElementById("leader-runs-val").textContent = topScorer.runs;
+    document.getElementById("leader-runs-team").textContent = `${topScorer.team} · SR: ${topScorer.sr || '—'}`;
+  }
+
+  const bowlers = loadWicketTakers();
+  if (bowlers && bowlers.length) {
+    const topBowler = bowlers[0];
+    document.getElementById("leader-wkts-name").textContent = topBowler.name;
+    document.getElementById("leader-wkts-val").textContent = topBowler.wickets;
+    document.getElementById("leader-wkts-team").textContent = `${topBowler.team} · Eco: ${topBowler.economy || '—'}`;
+  }
+
+  // Best NRR from all active teams
+  const allTeams = [...loadTeams(), ...loadJRTeams()];
+  allTeams.sort((a, b) => (parseFloat(b.nrr) || 0) - (parseFloat(a.nrr) || 0));
+  if (allTeams.length) {
+    const bestNRRTeam = allTeams[0];
+    document.getElementById("leader-nrr-name").textContent = bestNRRTeam.name;
+    document.getElementById("leader-nrr-val").textContent = formatNRR(bestNRRTeam.nrr);
+    document.getElementById("leader-nrr-team").textContent = `${bestNRRTeam.points} Points · ${bestNRRTeam.wins} Wins`;
+  }
 });
 </script>
 </body>
