@@ -41,12 +41,12 @@ const DEFAULT_TEAMS = [
     name: "House Prudvi (SR)",
     color: "#22C55E",
     logo: "asserts/Prudhvi.png",
-    played: 1,
+    played: 2,
     wins: 0,
-    losses: 1,
+    losses: 2,
     ties: 0,
     noResult: 0,
-    nrr: -3.49,
+    nrr: -8.82,
     points: 0
   },
   {
@@ -54,13 +54,13 @@ const DEFAULT_TEAMS = [
     name: "House Jal (SR)",
     color: "#A855F7",
     logo: "asserts/jal.png",
-    played: 2,
-    wins: 1,
+    played: 3,
+    wins: 2,
     losses: 1,
     ties: 0,
     noResult: 0,
-    nrr: +0.92,
-    points: 2
+    nrr: +6.25,
+    points: 4
   },
   {
     id: 5,
@@ -126,12 +126,12 @@ const DEFAULT_JR_TEAMS = [
     name: "House Jal (JR)",
     color: "#A855F7",
     logo: "asserts/jal.png",
-    played: 1,
-    wins: 0,
+    played: 2,
+    wins: 1,
     losses: 1,
     ties: 0,
     noResult: 0,
-    nrr: -0.96,
+    nrr: +2.37,
     points: 0
   },
 
@@ -140,12 +140,12 @@ const DEFAULT_JR_TEAMS = [
     name: "House Akash (JR)",
     color: "#06B6D4",
     logo: "asserts/Akash.png",
-    played: 1,
+    played: 2,
     wins: 1,
-    losses: 0,
+    losses: 1,
     ties: 0,
     noResult: 0,
-    nrr: +5.37,
+    nrr: +2.04,
     points: 2
   }
 ];
