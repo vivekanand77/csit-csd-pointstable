@@ -6,47 +6,55 @@
 // ⚠️  INCREMENT THIS every time you edit default team data below.
 // The browser will automatically clear cached localStorage and
 // load the fresh defaults from this file on next page load.
-const DATA_VERSION = "2026-09-07-v6";
+const DATA_VERSION = "2026-09-09-v7";
 
 
+// ============================================================
+// SR LEAGUE TEAMS
+// ============================================================
+// 🥇 🌪️ Vaayu  4 4 0 0  8  +2.39
+// 🥈 🌊 Jal    4 3 1 0  6  +4.57
+// 🥉 🔥 Agni   4 2 2 0  4  −0.40
+// 4️⃣ 🌍 Prithvi 3 0 3 0  0  −3.89
+// 5️⃣ ☁️ Aakash  3 0 3 0  0  −6.53
 const DEFAULT_TEAMS = [
   {
     id: 1,
     name: "House Vayu (SR)",
     color: "#287BEA",
     logo: "asserts/vayu.png",
-    played: 3,
-    wins: 3,
+    played: 4,
+    wins: 4,
     losses: 0,
     ties: 0,
     noResult: 0,
-    nrr: 2.03,
-    points: 6
+    nrr: +2.39,
+    points: 8
   },
   {
     id: 2,
     name: "House Agni (SR)",
     color: "#E84545",
     logo: "asserts/agni.png",
-    played: 3,
-    wins: 1,
+    played: 4,
+    wins: 2,
     losses: 2,
     ties: 0,
     noResult: 0,
-    nrr: -1.33,
-    points: 2
+    nrr: -0.40,
+    points: 4
   },
   {
     id: 3,
     name: "House Prudvi (SR)",
     color: "#22C55E",
     logo: "asserts/Prudhvi.png",
-    played: 2,
+    played: 3,
     wins: 0,
-    losses: 2,
+    losses: 3,
     ties: 0,
     noResult: 0,
-    nrr: -8.82,
+    nrr: -3.89,
     points: 0
   },
   {
@@ -54,25 +62,25 @@ const DEFAULT_TEAMS = [
     name: "House Jal (SR)",
     color: "#A855F7",
     logo: "asserts/jal.png",
-    played: 3,
-    wins: 2,
+    played: 4,
+    wins: 3,
     losses: 1,
     ties: 0,
     noResult: 0,
-    nrr: +6.25,
-    points: 4
+    nrr: +4.57,
+    points: 6
   },
   {
     id: 5,
     name: "House Akash (SR)",
     color: "#06B6D4",
     logo: "asserts/Akash.png",
-    played: 1,
+    played: 3,
     wins: 0,
-    losses: 1,
+    losses: 3,
     ties: 0,
     noResult: 0,
-    nrr: -0.17,
+    nrr: -6.53,
     points: 0
   }
 ];
@@ -80,32 +88,36 @@ const DEFAULT_TEAMS = [
 // ============================================================
 // JR LEAGUE TEAMS  (same house names, separate standings)
 // ============================================================
-
+// 🥇 🌊 Jal    4 3 1  6  +2.64
+// 🥈 🌪️ Vaayu  4 3 1  6  −0.95
+// 🥉 🔥 Agni   3 2 1  4  +1.36
+// 4️⃣ ☁️ Aakash  3 2 1  4  +1.97
+// 5️⃣ 🌍 Prithvi 4 0 4  0  −4.41
 const DEFAULT_JR_TEAMS = [
   {
     id: 1,
     name: "House Vayu (JR)",
     color: "#287BEA",
     logo: "asserts/vayu.png",
-    played: 2,
-    wins: 1,
+    played: 4,
+    wins: 3,
     losses: 1,
     ties: 0,
     noResult: 0,
-    nrr: -2.32,
-    points: 2
+    nrr: -0.95,
+    points: 6
   },
   {
     id: 2,
     name: "House Agni (JR)",
     color: "#E84545",
     logo: "asserts/agni.png",
-    played: 2,
+    played: 3,
     wins: 2,
-    losses: 0,
+    losses: 1,
     ties: 0,
     noResult: 0,
-    nrr: +5.50,
+    nrr: +1.36,
     points: 4
   },
   {
@@ -113,12 +125,12 @@ const DEFAULT_JR_TEAMS = [
     name: "House Prudvi (JR)",
     color: "#22C55E",
     logo: "asserts/Prudhvi.png",
-    played: 2,
+    played: 4,
     wins: 0,
-    losses: 2,
+    losses: 4,
     ties: 0,
     noResult: 0,
-    nrr: -5.37,
+    nrr: -4.41,
     points: 0
   },
   {
@@ -126,27 +138,26 @@ const DEFAULT_JR_TEAMS = [
     name: "House Jal (JR)",
     color: "#A855F7",
     logo: "asserts/jal.png",
-    played: 2,
-    wins: 1,
+    played: 4,
+    wins: 3,
     losses: 1,
     ties: 0,
     noResult: 0,
-    nrr: +1.19,
-    points: 2
+    nrr: +2.64,
+    points: 6
   },
-
   {
     id: 5,
     name: "House Akash (JR)",
     color: "#06B6D4",
     logo: "asserts/Akash.png",
-    played: 2,
-    wins: 1,
+    played: 3,
+    wins: 2,
     losses: 1,
     ties: 0,
     noResult: 0,
-    nrr: +1.03,
-    points: 2
+    nrr: +1.97,
+    points: 4
   }
 ];
 
