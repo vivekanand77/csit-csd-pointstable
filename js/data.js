@@ -152,12 +152,12 @@ const DEFAULT_JR_TEAMS = [
     color: "#06B6D4",
     logo: "asserts/Akash.png",
     played: 3,
-    wins: 2,
-    losses: 1,
+    wins: 1,
+    losses: 2,
     ties: 0,
     noResult: 0,
     nrr: +1.97,
-    points: 4
+    points: 2
   }
 ];
 
