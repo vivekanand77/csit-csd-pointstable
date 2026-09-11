@@ -112,12 +112,12 @@ const DEFAULT_JR_TEAMS = [
     name: "House Agni (JR)",
     color: "#E84545",
     logo: "asserts/agni.png",
-    played: 3,
+    played: 4,
     wins: 2,
-    losses: 1,
+    losses: 2,
     ties: 0,
     noResult: 0,
-    nrr: +1.36,
+    nrr: +0.56,
     points: 4
   },
   {
@@ -151,13 +151,13 @@ const DEFAULT_JR_TEAMS = [
     name: "House Akash (JR)",
     color: "#06B6D4",
     logo: "asserts/Akash.png",
-    played: 3,
-    wins: 1,
+    played: 4,
+    wins: 2,
     losses: 2,
     ties: 0,
     noResult: 0,
     nrr: +1.97,
-    points: 2
+    points: 4
   }
 ];
 
